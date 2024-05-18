@@ -44,7 +44,7 @@ public class StockRepository {
         return stocks.stream()
                 .skip(skipNonNull)
                 .limit(limitNonNull)
-                .sorted(Comparator.comparing(Stock::getId,Collections.reverseOrder()))
+                .sorted(Comparator.comparing(Stock::getId))
                 .toList();
     }
 
