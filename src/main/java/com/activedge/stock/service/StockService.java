@@ -48,7 +48,6 @@ public class StockService {
         Stock stock = new Stock();
         stock.setCurrentPrice(createStockRequest.getCurrentPrice());
         stock.setName(createStockRequest.getName());
-        stock.setCreatedAt(Instant.now());
         return stockRepository.save(stock);
     }
 
@@ -71,7 +70,6 @@ public class StockService {
         if(Objects.nonNull(updateStockRequest.getCurrentPrice())) {
             stock.setCurrentPrice(updateStockRequest.getCurrentPrice());
         }
-        stock.setUpdatedAt(Instant.now());
         return stockRepository.save(stock);
     }
 }
