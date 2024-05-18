@@ -14,7 +14,7 @@ import java.util.Objects;
 @Getter
 @Setter
 public final class Stock {
-    private Number id;
+    private Long id;
     private String name;
     private BigDecimal currentPrice;
     private Instant createdAt;

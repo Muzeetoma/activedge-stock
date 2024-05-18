@@ -24,16 +24,16 @@ public class StockService {
         return stockRepository.findAll(skip,limit);
     }
 
-    public Stock getById(Number stockId){
+    public Stock getById(Long stockId){
         return stockRepository.findById(stockId)
                 .orElseThrow(()-> new NotFoundException(
                 String.format("Stock with id %s not found", stockId)));
     }
 
-    public void create(CreateStockRequest createStockRequest){
+    public Stock create(CreateStockRequest createStockRequest){
         if(stockRepository.existsByName(createStockRequest.getName())){
             throw new NotAcceptableException(
-                    String.format("A stock with the name %s exist already",
+                    String.format("A stock with the name %s exists already",
                             createStockRequest.getName()
                     ));
         }
@@ -41,10 +41,10 @@ public class StockService {
         stock.setCurrentPrice(createStockRequest.getCurrentPrice());
         stock.setName(createStockRequest.getName());
         stock.setCreatedAt(Instant.now());
-        stockRepository.save(stock);
+        return stockRepository.save(stock);
     }
 
-    public void update(Number stockId,UpdateStockRequest updateStockRequest){
+    public Stock update(Long stockId, UpdateStockRequest updateStockRequest){
         updateStockRequest.validate();
         Stock stock = stockRepository.findById(stockId)
                       .orElseThrow(()-> new NotFoundException(
@@ -64,6 +64,6 @@ public class StockService {
             stock.setCurrentPrice(updateStockRequest.getCurrentPrice());
         }
         stock.setUpdatedAt(Instant.now());
-        stockRepository.save(stock);
+        return stockRepository.update(stockId,stock);
     }
 }

@@ -12,7 +12,7 @@ public class UpdateStockRequest {
     private BigDecimal currentPrice;
 
     public void validate(){
-        if(name.isBlank() && Objects.isNull(currentPrice)){
+        if((Objects.isNull(name) || name.isBlank()) && Objects.isNull(currentPrice)){
             throw new BadRequestException("Nothing to update");
         }
     }

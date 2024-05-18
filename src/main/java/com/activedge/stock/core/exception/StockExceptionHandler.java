@@ -45,7 +45,7 @@ public class StockExceptionHandler {
 
     @ExceptionHandler(value = { NotAcceptableException.class })
     @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
-    public ResponseDto<?> notAcceptableErrorHandler(NotFoundException ex) {
+    public ResponseDto<?> notAcceptableErrorHandler(NotAcceptableException ex) {
         ResponseDto<?> responseDto = new ResponseDto<>();
         responseDto.setStatus("FAILED");
         responseDto.setStatusCode(HttpStatus.NOT_ACCEPTABLE.value());
@@ -55,16 +55,16 @@ public class StockExceptionHandler {
     }
 
 
-        @ExceptionHandler(value = { BadRequestException.class })
-        @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-        public ResponseDto<?> badRequestExceptionHandler(BadRequestException ex) {
-            ResponseDto<?> responseDto = new ResponseDto<>();
-            responseDto.setStatus("FAILED");
-            responseDto.setStatusCode(HttpStatus.BAD_REQUEST.value());
-            responseDto.setErrors(
-                    Collections.singletonList(new ErrorResponse("", ex.getMessage())));
-            return responseDto;
-        }
+    @ExceptionHandler(value = { BadRequestException.class })
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ResponseDto<?> badRequestExceptionHandler(BadRequestException ex) {
+        ResponseDto<?> responseDto = new ResponseDto<>();
+        responseDto.setStatus("FAILED");
+        responseDto.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        responseDto.setErrors(
+                Collections.singletonList(new ErrorResponse("", ex.getMessage())));
+        return responseDto;
+    }
 
 
 }
