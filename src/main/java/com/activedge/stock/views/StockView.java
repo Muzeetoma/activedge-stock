@@ -25,6 +25,7 @@ public class StockView extends VerticalLayout {
 
         List<Stock> stocks = stockService.getAll(0,20);
         grid.setItems(stocks);
+        grid.setAllRowsVisible(true);
 
         add(new H1("Stock View"));
         add(grid);
