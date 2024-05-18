@@ -3,8 +3,8 @@
   activedge-stock/exercise2.sql
   ```
 
-2. Navigate to:
+2. To see the frontend view, navigate to:
   ```
   localhost:8080
   ```
-  to see the frontend view
+
