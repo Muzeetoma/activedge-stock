@@ -23,7 +23,7 @@ public class StockView extends VerticalLayout {
         grid.addColumn(Stock::getCurrentPrice).setHeader("Current Price");
         grid.addColumn(Stock::getUpdatedAt).setHeader("Last updated At");
 
-        List<Stock> stocks = stockService.getAll(0,20);
+        List<Stock> stocks = stockService.getStocks(0,20);
         grid.setItems(stocks);
         grid.setAllRowsVisible(true);
 

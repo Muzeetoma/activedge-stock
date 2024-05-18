@@ -1,12 +1,15 @@
 package com.activedge.stock.service;
 
-import com.activedge.stock.dto.CreateStockRequest;
-import com.activedge.stock.dto.UpdateStockRequest;
 import com.activedge.stock.core.exception.NotAcceptableException;
 import com.activedge.stock.core.exception.NotFoundException;
+import com.activedge.stock.dto.CreateStockRequest;
+import com.activedge.stock.dto.UpdateStockRequest;
 import com.activedge.stock.model.Stock;
 import com.activedge.stock.repository.StockRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -19,9 +22,14 @@ public class StockService {
 
     private final StockRepository stockRepository;
 
-    public List<Stock> getAll(long page,long limit){
-        long skip = page * limit;
-        return stockRepository.findAll(skip,limit);
+    public Page<Stock> getAll(int page,int limit){
+        Pageable pageable = PageRequest.of(page,limit);
+        return stockRepository.findAll(pageable);
+    }
+
+    public List<Stock> getStocks(int page,int limit){
+        Pageable pageable = PageRequest.of(page,limit);
+        return stockRepository.findAll(pageable).toList();
     }
 
     public Stock getById(Long stockId){
@@ -64,6 +72,6 @@ public class StockService {
             stock.setCurrentPrice(updateStockRequest.getCurrentPrice());
         }
         stock.setUpdatedAt(Instant.now());
-        return stockRepository.update(stockId,stock);
+        return stockRepository.save(stock);
     }
 }

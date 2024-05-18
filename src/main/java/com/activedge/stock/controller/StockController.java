@@ -6,9 +6,8 @@ import com.activedge.stock.model.Stock;
 import com.activedge.stock.service.StockService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/stocks")
@@ -18,9 +17,9 @@ public class StockController {
     private final StockService stockService;
 
     @GetMapping()
-    public List<Stock> search(
-            @RequestParam(value = "page", required = false, defaultValue = "0") Long page,
-            @RequestParam(value = "size", required = false, defaultValue = "20") Long limit
+    public Page<Stock> search(
+            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "20") int limit
     ) {
         return stockService.getAll(page,limit);
     }
@@ -29,7 +28,6 @@ public class StockController {
     public Stock getById(@PathVariable(value = "id") Long id) {
         return stockService.getById(id);
     }
-
 
     @PostMapping()
     public Stock create(@Valid() @RequestBody CreateStockRequest createStockRequest) {
